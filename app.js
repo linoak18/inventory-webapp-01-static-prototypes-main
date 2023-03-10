@@ -3,7 +3,14 @@
 const express = require( "express" );
 const app = express();
 const helmet = require("helmet"); 
-app.use(helmet()); 
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'cdnjs.cloudflare.com']
+      }
+    }
+  })); 
 const port = process.env.PORT || 8080;
 const logger = require("morgan");
 const db = require('./db/db_pool');
