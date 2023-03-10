@@ -1,0 +1,28 @@
+
+form {
+    border: solid 2px lightgrey;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+form:focus-within {
+    border-color: orange;
+}
+
+tr:hover {
+    background-color: #F0F0F0;
+}
+
+h3 {
+    font-size: 1.0 em
+}
+
+.typeBtn {
+    color: #26a69a;
+    font-weight: 600;
+}
+
+.typeBtn:hover {
+    color: #1a726a;
+
+}
