@@ -2,6 +2,7 @@
 //set up the server
 const express = require( "express" );
 const app = express();
+const { auth } = require('express-openid-connect');
 const helmet = require("helmet"); 
 app.use(helmet({
     contentSecurityPolicy: {
@@ -11,6 +12,19 @@ app.use(helmet({
       }
     }
   })); 
+
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'a long, randomly-generated string stored in env',
+    baseURL: 'http://localhost:3000',
+    clientID: '1ceYeSagi9IJcPyJHuMWVMCvPnHJgnfo',
+    issuerBaseURL: 'https://dev-x5efyhmf74d05758.us.auth0.com'
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
 const port = process.env.PORT || 8080;
 const logger = require("morgan");
 const db = require('./db/db_pool');
@@ -30,6 +44,13 @@ app.use(express.static(__dirname + '/public'));
 
 // Configure Express to parse URL-encoded POST request bodies (traditional forms)
 app.use( express.urlencoded({ extended: false }) );
+
+
+// req.isAuthenticated is provided from the auth router
+app.get('/authtest', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+
 
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
