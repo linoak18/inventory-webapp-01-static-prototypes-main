@@ -11,7 +11,7 @@ app.use(helmet({
         scriptSrc: ["'self'", 'cdnjs.cloudflare.com']
       }
     }
-  })); 
+})); 
 
 
 const port = process.env.PORT || 8080;
@@ -21,13 +21,16 @@ const db = require('./db/db_pool');
 const config = {
     authRequired: false,
     auth0Logout: true,
-    secret: 'a long, randomly-generated string stored in env',
-    baseURL: 'http://localhost:8080',
-    clientID: '1ceYeSagi9IJcPyJHuMWVMCvPnHJgnfo',
-    issuerBaseURL: 'https://dev-x5efyhmf74d05758.us.auth0.com'
-};
+    secret: process.env.AUTH0_SECRET,
+    baseURL: process.env.AUTH0_BASE_URL,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL
+  };
 
 const { requiresAuth } = require('express-openid-connect');
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
