@@ -50,6 +50,12 @@ app.use(express.static(__dirname + '/public'));
 // Configure Express to parse URL-encoded POST request bodies (traditional forms)
 app.use( express.urlencoded({ extended: false }) );
 
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.oidc.isAuthenticated();
+    res.locals.user = req.oidc.user;
+    next();
+})
+
 
 // req.isAuthenticated is provided from the auth router
 app.get('/authtest', (req, res) => {
