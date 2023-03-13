@@ -13,6 +13,11 @@ app.use(helmet({
     }
   })); 
 
+
+const port = process.env.PORT || 8080;
+const logger = require("morgan");
+const db = require('./db/db_pool');
+
 const config = {
     authRequired: false,
     auth0Logout: true,
@@ -24,11 +29,6 @@ const config = {
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
-
-const port = process.env.PORT || 8080;
-const logger = require("morgan");
-const db = require('./db/db_pool');
-
 
 
 // Configure Express to use EJS
