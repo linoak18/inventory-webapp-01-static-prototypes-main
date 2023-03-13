@@ -27,6 +27,8 @@ const config = {
     issuerBaseURL: 'https://dev-x5efyhmf74d05758.us.auth0.com'
 };
 
+const { requiresAuth } = require('express-openid-connect');
+
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
@@ -51,6 +53,10 @@ app.get('/authtest', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+});
+  
 
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
