@@ -26,3 +26,10 @@ h3 {
     color: #1a726a;
 
 }
+
+.piggyBank {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%; 
+}
