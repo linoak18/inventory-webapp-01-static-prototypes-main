@@ -1,4 +1,11 @@
 
+#piggyBank {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%; 
+}
+
 form {
     border: solid 2px lightgrey;
     padding: 10px;
@@ -27,9 +34,3 @@ h3 {
 
 }
 
-.piggyBank {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%; 
-}
