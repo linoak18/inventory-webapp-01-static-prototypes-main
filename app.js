@@ -101,15 +101,17 @@ const read_item_sql = `
         stuff
     WHERE
         id = ?
+    AND 
+        userid = ?
 `
 
 // define a route for the item detail page
 app.get( "/stuff/item/:id", requiresAuth(), ( req, res ) => {
-    db.execute(read_item_sql, [req.params.id], (error, results) => {
+    db.execute(read_item_sql, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else if (results.length == 0)
-            res.status(404).send(`No item found with id = "${req.params.id}"` ); // NOT FOUND
+            res.status(404).send(`No item found with id = "${req.params.id}"`); // NOT FOUND
         else {
             let data = results[0]; // results is still an array
             // data's object structure: 
@@ -156,9 +158,11 @@ const delete_item_sql = `
         stuff
     WHERE
         id = ?
+    AND 
+        userid = ?
 `
 app.get("/stuff/item/:id/delete", requiresAuth(), ( req, res ) => {
-    db.execute(delete_item_sql, [req.params.id], (error, results) => {
+    db.execute(delete_item_sql, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
@@ -217,9 +221,11 @@ const update_item_sql = `
         description = ?
     WHERE
         id = ?
+    AND 
+        userid = ?
 `
 app.post("/stuff/item/:id", requiresAuth(), ( req, res ) => {
-    db.execute(update_item_sql, [req.body.name, req.body.price, req.body.type, req.body.description, req.params.id], (error, results) => {
+    db.execute(update_item_sql, [req.body.name, req.body.price, req.body.type, req.body.description, req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
