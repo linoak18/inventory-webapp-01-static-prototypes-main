@@ -6,6 +6,12 @@
     
 }
 
+#typeHeader {
+    color:  #26a69a; 
+    font-size: 2em; 
+
+}
+
 form {
     border: solid 2px lightgrey;
     padding: 10px;

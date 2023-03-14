@@ -108,6 +108,10 @@
         </div>
         <div class="section" id="stuffList">
             <h2>Expenses</h2>
+            <% if(locals.type) {%>
+                <h3 id="typeHeader"><%= type %></h3>
+            <% } %>
+
             <table class="striped" class="responsive-table">
                 <thead>
 
