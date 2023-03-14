@@ -81,7 +81,7 @@ const read_stuff_all_sql = `
 `
 
 // define a route for the stuff inventory page
-app.get( "/stuff", ( req, res ) => {
+app.get( "/stuff", requiresAuth(), ( req, res ) => {
     db.execute(read_stuff_all_sql, (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -102,7 +102,7 @@ const read_item_sql = `
 `
 
 // define a route for the item detail page
-app.get( "/stuff/item/:id", ( req, res ) => {
+app.get( "/stuff/item/:id", requiresAuth(), ( req, res ) => {
     db.execute(read_item_sql, [req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -130,7 +130,7 @@ const read_type_sql = `
         
 `
 
-app.get("/stuff/types/:type", ( req, res ) => {
+app.get("/stuff/types/:type", requiresAuth(), ( req, res ) => {
     db.execute(read_type_sql, [req.params.type], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -155,7 +155,7 @@ const delete_item_sql = `
     WHERE
         id = ?
 `
-app.get("/stuff/item/:id/delete", ( req, res ) => {
+app.get("/stuff/item/:id/delete", requiresAuth(), ( req, res ) => {
     db.execute(delete_item_sql, [req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -174,7 +174,7 @@ const delete_item_type_sql = `
         type = ?
         id = ?
 `
-app.get("/stuff/types/:type/:id/delete", ( req, res ) => {
+app.get("/stuff/types/:type/:id/delete", requiresAuth(), ( req, res ) => {
     db.execute(delete_item_sql, [req.params.type], [req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -192,7 +192,7 @@ const create_item_sql = `
     VALUES
         (?, ?, ?)
 `
-app.post("/stuff", ( req, res ) => {
+app.post("/stuff", requiresAuth(), ( req, res ) => {
     db.execute(create_item_sql, [req.body.name, req.body.price, req.body.type], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
@@ -216,7 +216,7 @@ const update_item_sql = `
     WHERE
         id = ?
 `
-app.post("/stuff/item/:id", ( req, res ) => {
+app.post("/stuff/item/:id", requiresAuth(), ( req, res ) => {
     db.execute(update_item_sql, [req.body.name, req.body.price, req.body.type, req.body.description, req.params.id], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
