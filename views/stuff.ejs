@@ -165,7 +165,7 @@
                     </div>
                     <div class="input-field col s4">
                         <label for="typeInput">Type</label>
-                        <input type="text" name="type" id="typeInput">
+                        <input type="text" name="type" id="typeInput" <% if(locals.type) {%> value="<%= type %>"<% } %>>
                     </div>
 
                 </div>
