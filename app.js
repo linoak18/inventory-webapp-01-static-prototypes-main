@@ -141,10 +141,7 @@ app.get("/stuff/types/:type", requiresAuth(), ( req, res ) => {
         else {
             res.render('stuff', { inventory : results, type : req.params.type });
 
-            //*let typeData = results; // results is still an array
-            // data's object structure: 
-            //  { item: ___ , price:___ , description: ____ }
-            //*res.render('types', typeData);
+           
         }
             
     })
