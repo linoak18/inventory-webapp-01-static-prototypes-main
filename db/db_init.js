@@ -16,6 +16,7 @@ const create_stuff_table_sql = `
         price DECIMAL NOT NULL,
         description VARCHAR(150) NULL,
         type VARCHAR(45) NULL,
+        userid VARCHAR(50) NULL,
         PRIMARY KEY (id)
     );
 `

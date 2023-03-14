@@ -188,12 +188,12 @@ app.get("/stuff/types/:type/:id/delete", requiresAuth(), ( req, res ) => {
 // define a route for item Create
 const create_item_sql = `
     INSERT INTO stuff
-        (item, price, type)
+        (item, price, type, userid)
     VALUES
-        (?, ?, ?)
+        (?, ?, ?, ?)
 `
 app.post("/stuff", requiresAuth(), ( req, res ) => {
-    db.execute(create_item_sql, [req.body.name, req.body.price, req.body.type], (error, results) => {
+    db.execute(create_item_sql, [req.body.name, req.body.price, req.body.type, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
